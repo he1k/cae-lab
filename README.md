@@ -48,7 +48,7 @@ No installation is required, however, enable the file's execute bit to make it e
 
 ### RISC-V Tools
 
-For later lab exercises and your final project we need the full RISC-V toolchain, including a port of gcc. You can either install the toolchain using the instructions below, or you can download prebuilt binaries of all necessary tools from SiFive's Freedom Tools. Note that you must use the [August 2020 version](https://github.com/sifive/freedom-tools/releases/tag/v2020.08.0). Download the riscv64-unknown-elf-gcc version suited for your OS. 
+For later lab exercises and your final project we need the full RISC-V toolchain, including a port of gcc. You can either install the toolchain using the instructions below, or you can download prebuilt binaries of all necessary tools from SiFive's Freedom Tools. Note that you must use the [December 2020 version](https://github.com/sifive/freedom-tools/releases/tag/v2020.12.0). Download the riscv64-unknown-elf-gcc version suited for your OS.
 
 #### Ubuntu (Linux)
 
@@ -69,9 +69,35 @@ Now follow the instructions for Ubuntu above.
 #### macOS
 
 Under macOS you need a packet manager.
-[Homebrew](https://brew.sh/) is one of the popular ones.
+[Homebrew](https://brew.sh/) is one of the popular ones. Install it by running the following command
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 After installing homebrew, install the RISC-V tool bew package from
-[here](https://github.com/riscv-software-src/homebrew-riscv).
+[here](https://github.com/riscv-software-src/homebrew-riscv). 
+Unfortunately, the homebrew formulae from the repo is currently with errors. To install the package in it's current state, start by running the following command:
+```bash
+brew tap riscv-software-src/riscv
+``
+We need to edit this tap, as it contains wrong reference's to other repo's. If you are comfortable using terminal based editors, run the following command:
+```bash
+brew edit riscv-gnu-toolchain
+```
+Then change line 55 and 56 to the following
+```bash
+    system "git", "submodule", "update", "--init", "--recursive", "binutils"
+    system "git", "submodule", "update", "--init", "--recursive", "gcc"
+```
+Furthermore, change line 66 and 67 to
+```bash
+    system "sed", "-i", ".bak", "s/.*=host-darwin.o$//", "gcc/gcc/config.host"
+    system "sed", "-i", ".bak", "s/.* x-darwin.$//", "gcc/gcc/config.host"
+```
+If you would like to use some other texteditor, then go to ```/usr/local/Homebrew/Library/Taps/riscv-software-src/homebrew-riscv/```and edit the same lines as mentioned in the file ```riscv-gnu-toolchain.rb```.
+Once the formulae has been corrected, the toolchain can then be installed by running:
+```bash
+    brew install riscv-tools
+```
 
 Note that the name of the compiler and tools on macOS will be slightly different:
 ```

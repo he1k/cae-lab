@@ -75,28 +75,28 @@ Under macOS you need a packet manager.
 ```
 After installing homebrew, install the RISC-V tool bew package from
 [here](https://github.com/riscv-software-src/homebrew-riscv). 
-Unfortunately, the homebrew formulae from the repo is at it's current state stuck with some error's. To install the package, start by running the following command in the terminal:
+Unfortunately, the homebrew formulae from the repo is at its current state stuck with some errors. To install the package, start by running the following command in the terminal:
 ```bash
 brew tap riscv-software-src/riscv
 ```
-Tapping this formulae won't work, as it contains wrong reference's to other repo's. If you are comfortable using terminal based editors, run the following command:
+Tapping this formulae won't work, as it contains wrong references to other repos. If you are comfortable using terminal based text editors, then run the following command:
 ```bash
 brew edit riscv-gnu-toolchain
 ```
 Then change line 55 and 56 to the following
 ```ruby
-    system "git", "submodule", "update", "--init", "--recursive", "binutils"
-    system "git", "submodule", "update", "--init", "--recursive", "gcc"
+system "git", "submodule", "update", "--init", "--recursive", "binutils"
+system "git", "submodule", "update", "--init", "--recursive", "gcc"
 ```
 Furthermore, change line 66 and 67 to
 ```ruby
-    system "sed", "-i", ".bak", "s/.*=host-darwin.o$//", "gcc/gcc/config.host"
-    system "sed", "-i", ".bak", "s/.* x-darwin.$//", "gcc/gcc/config.host"
+system "sed", "-i", ".bak", "s/.*=host-darwin.o$//", "gcc/gcc/config.host"
+system "sed", "-i", ".bak", "s/.* x-darwin.$//", "gcc/gcc/config.host"
 ```
 If you would like to use some other texteditor, then go to ```/usr/local/Homebrew/Library/Taps/riscv-software-src/homebrew-riscv/```and edit the same lines as mentioned in the file ```riscv-gnu-toolchain.rb```.
 Once the formulae has been corrected, the toolchain can then be installed by running:
 ```bash
-    brew install riscv-tools
+brew install riscv-tools
 ```
 
 Note that the name of the compiler and tools on macOS will be slightly different:

@@ -84,12 +84,12 @@ Tapping this formulae won't work, as it contains wrong reference's to other repo
 brew edit riscv-gnu-toolchain
 ```
 Then change line 55 and 56 to the following
-```bash
+```ruby
     system "git", "submodule", "update", "--init", "--recursive", "binutils"
     system "git", "submodule", "update", "--init", "--recursive", "gcc"
 ```
 Furthermore, change line 66 and 67 to
-```bash
+```ruby
     system "sed", "-i", ".bak", "s/.*=host-darwin.o$//", "gcc/gcc/config.host"
     system "sed", "-i", ".bak", "s/.* x-darwin.$//", "gcc/gcc/config.host"
 ```

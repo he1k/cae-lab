@@ -75,7 +75,7 @@ Under macOS you need a packet manager.
 ```
 After installing homebrew, install the RISC-V tool bew package from
 [here](https://github.com/riscv-software-src/homebrew-riscv). 
-Unfortunately, the homebrew formulae from the repo is currently with errors. To install the package in it's current state, start by running the following command:
+Unfortunately, the homebrew formulae from the repo is at it's current state stuck with some error's. To install the package, start by running the following command:
 ```bash
 brew tap riscv-software-src/riscv
 ``
